@@ -1,0 +1,16 @@
+# Demo only: one replica, built-in etcd, Admin API open to the laptop.
+service:
+  type: NodePort
+  http:
+    nodePort: 30080
+apisix:
+  admin:
+    type: NodePort
+    nodePort: 30180
+    credentials:
+      admin: demo-admin-key   # change this anywhere that isn't a laptop
+    allow:
+      ipList:
+        - 0.0.0.0/0
+etcd:
+  replicaCount: 1

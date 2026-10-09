@@ -1,0 +1,21 @@
+# The plain HTTP service we put behind the gateway.
+# The local LLM is Ollama running natively on the laptop (GPU), not in the cluster.
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: httpbin}
+spec:
+  selector: {matchLabels: {app: httpbin}}
+  template:
+    metadata: {labels: {app: httpbin}}
+    spec:
+      containers:
+        - name: httpbin
+          image: mccutchen/go-httpbin:2.25.0
+          ports: [{containerPort: 8080}]
+---
+apiVersion: v1
+kind: Service
+metadata: {name: httpbin}
+spec:
+  selector: {app: httpbin}
+  ports: [{port: 80, targetPort: 8080}]

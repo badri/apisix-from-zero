@@ -1,0 +1,10 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: apisix
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      - containerPort: 30080   # APISIX gateway (NodePort)
+        hostPort: 9080
+      - containerPort: 30180   # APISIX Admin API (NodePort)
+        hostPort: 9180
